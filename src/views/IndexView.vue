@@ -1,7 +1,14 @@
 <script lang="ts" setup>
+import { useTodoStore } from '@/stores/todoStore'
+
 import AppUserInfo from '@/components/AppUserInfo.vue'
-import AppTodoForm from '@/components/AppTodoForm.vue'
-import AppTodoFilters from '@/components/AppTodoFilters.vue'
+import AppTodoForm from '@/components/todo/AppTodoForm.vue'
+import AppTodoList from '@/components/todo/AppTodoList.vue'
+import AppTodoFilters from '@/components/todo/AppTodoFilters.vue'
+
+const todoStore = useTodoStore()
+
+todoStore.getTodos()
 </script>
 
 <template>
@@ -11,6 +18,8 @@ import AppTodoFilters from '@/components/AppTodoFilters.vue'
     <AppTodoFilters class="index__form" />
 
     <AppTodoForm class="index__form" />
+
+    <AppTodoList />
   </section>
 </template>
 
@@ -28,6 +37,12 @@ import AppTodoFilters from '@/components/AppTodoFilters.vue'
 
   &__form {
     width: min(1000px, 100%);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .index {
+    gap: 50px;
   }
 }
 </style>

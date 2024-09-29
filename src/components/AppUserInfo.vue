@@ -43,7 +43,7 @@ const {
   .user-info {
     display: grid;
     grid-template-columns: 1fr;
-    grid-auto-rows: 1fr;
+    grid-auto-rows: min-content;
     grid-gap: 20px;
     width: 100%;
     height: max-content;

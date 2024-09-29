@@ -21,7 +21,7 @@ export interface CreateTodoInputs {
 
 export interface CreateTodoParams {
   title: string
-  userId: number
+  userId: string
 }
 
 export type CreatedTodoData = Omit<Todo, 'completed'>

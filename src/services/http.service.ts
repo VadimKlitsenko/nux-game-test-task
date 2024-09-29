@@ -44,7 +44,7 @@ export const httpPost = async <R extends HttpResponse>(
   const response: Response = await fetch(url, {
     method: 'POST',
     body: JSON.stringify(params),
-    //headers: { 'Content-type': 'application/json; charset=UTF-8' }
+    headers: { 'Content-type': 'application/json; charset=UTF-8' }
   })
 
   if (!response.ok) {

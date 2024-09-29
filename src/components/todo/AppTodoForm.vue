@@ -26,7 +26,7 @@ const submit = (): void => {
 
   todoStore.addTodo({
     title: params.title,
-    userId: Number(params.userId)
+    userId: params.userId
   })
 }
 </script>
@@ -63,5 +63,12 @@ const submit = (): void => {
   grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: 1fr;
   grid-gap: 20px;
+}
+
+@media screen and (max-width: 767px) {
+  .todo-form {
+    grid-template-columns: 1fr;
+    grid-auto-rows: max-content;
+  }
 }
 </style>

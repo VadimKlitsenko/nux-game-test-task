@@ -1,19 +1,19 @@
 import { ref, reactive, computed } from 'vue'
 import { defineStore } from 'pinia'
 
+import type { SelectOption } from '@/types/ui'
 import type {
   Todo,
   TodoFilters,
   CreatedTodoData,
   CreateTodoParams
 } from '@/types/todo'
-import type { SelectOption } from '@/types/ui'
 
 import { StatusValues } from '@/consts/todo'
+import { DEFAULT_SELECT_OPTION } from '@/consts/ui'
 import { LocalStorageKeys } from '@/consts/local-storage'
 import { createTodo, fetchTodos } from '@/services/todo.service'
-import { getFromLocalStorage } from '@/services/local-storage.service'
-import { DEFAULT_SELECT_OPTION } from '@/consts/ui'
+import { getFromLocalStorage, setToLocalStorage } from '@/services/local-storage.service'
 
 export const useTodoStore = defineStore('todoStore', () => {
   const _todos = ref<Todo[]>([])
@@ -54,7 +54,7 @@ export const useTodoStore = defineStore('todoStore', () => {
 
   const filteredTodos = computed<Todo[]>(() => {
     return _todos.value.filter((todo: Todo) => {
-      const isValidId = todo.id === todo.id
+      const isValidId = (filters.id === null) || todo.id === filters.id
       const isSearchMatch = filters.search.length === 0 || todo.title.includes(filters.search)
 
       let isValidStatus = true
@@ -81,10 +81,20 @@ export const useTodoStore = defineStore('todoStore', () => {
   })
 
   const addTodoToList = (todo: CreatedTodoData): void => {
-    _todos.value.push({
+    _todos.value.unshift({
       ...todo,
       completed: false
     })
+  }
+
+  const removeOrAddFavoriteTodo = (todoId: number): void => {
+    if (_favoriteTodoIds.value.includes(todoId)) {
+      _favoriteTodoIds.value = _favoriteTodoIds.value.filter(i => i !== todoId)
+    } else {
+      _favoriteTodoIds.value.push(todoId)
+    }
+
+    setToLocalStorage(LocalStorageKeys.FAVOURITE_TODO_IDS, _favoriteTodoIds.value)
   }
 
   const addTodo = async (params: CreateTodoParams): Promise<void> => {
@@ -119,6 +129,7 @@ export const useTodoStore = defineStore('todoStore', () => {
     userIdsAsOptions,
     isCreationTodoLoading,
     addTodo,
-    getTodos
+    getTodos,
+    removeOrAddFavoriteTodo
   }
 })

@@ -53,8 +53,8 @@ const selectOption = (option: SelectOption): void => {
       {{ selectedLabel }}
     </div>
     <ul
-      :class="{ 'ui-select__items_hidden': !isOpen }"
-      class="ui-select__items"
+      :class="{ 'ui-select__list_hidden': !isOpen }"
+      class="ui-select__list"
     >
       <li
         v-for="(option, index) in options"
@@ -109,9 +109,8 @@ const selectOption = (option: SelectOption): void => {
     }
   }
 
-  &__items {
+  &__list {
     position: absolute;
-    overflow: hidden;
     left: 0;
     right: 0;
     z-index: 1;
@@ -121,6 +120,8 @@ const selectOption = (option: SelectOption): void => {
     border: 1px solid $color-green-01;
     background-color: $color-grey-04;
     box-sizing: border-box;
+    overflow: scroll;
+    max-height: 282px;
 
     &_hidden {
       display: none;
@@ -128,6 +129,7 @@ const selectOption = (option: SelectOption): void => {
   }
 
   &__item {
+    height: 47px;
     padding-left: 10px;
     color: $color-white-01;
     cursor: pointer;

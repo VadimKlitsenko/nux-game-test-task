@@ -39,4 +39,12 @@ const { filters, userIdsAsOptions } = storeToRefs(useTodoStore())
   grid-gap: 20px;
   margin-top: 20px;
 }
+
+@media screen and (max-width: 767px) {
+  .todo-filters {
+    grid-template-columns: 1fr;
+    grid-auto-rows: max-content;
+    grid-gap: 30px;
+  }
+}
 </style>

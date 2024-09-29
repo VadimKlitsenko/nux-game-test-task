@@ -24,11 +24,11 @@ export const useUserStore = defineStore('userStore', () => {
   const userAddress = computed<Record<string, string | number> | null>(() => {
     return (userInfo.value) ? {
       city: userInfo.value.address.city,
-      street: userInfo.value.address.street,
       suite: userInfo.value.address.suite,
-      zipcode: userInfo.value.address.zipcode,
       lat: userInfo.value.address.geo.lat,
       lng: userInfo.value.address.geo.lng,
+      street: userInfo.value.address.street,
+      zipcode: userInfo.value.address.zipcode,
     } : null
   })
 
@@ -36,16 +36,16 @@ export const useUserStore = defineStore('userStore', () => {
     return (userInfo.value) ? {
       id: userInfo.value.id,
       name: userInfo.value.name,
-      userName: userInfo.value.username,
       phone: userInfo.value.phone,
-      website: userInfo.value.website
+      website: userInfo.value.website,
+      userName: userInfo.value.username
     } : null
   })
 
   const userCompanyInfo = computed<Record<string, string | number> | null>(() => {
     return (userInfo.value) ? {
-      name: userInfo.value.company.name,
       bs: userInfo.value.company.bs,
+      name: userInfo.value.company.name,
       catchPhrase: userInfo.value.company.catchPhrase
     } : null
   })
